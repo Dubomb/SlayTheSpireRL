@@ -1,5 +1,3 @@
-
-
 class Relic:
     def __init__(self, name, id, counter):
         self.name = name
@@ -8,6 +6,8 @@ class Relic:
     
     @classmethod
     def from_dict(cls, data):
-        return cls(data['name'],
-                   data['id'],
-                   int(data['counter']))
+        name = data.get('name', '')
+        id = data.get('id', '')
+        counter = int(data.get('counter', 0))
+        
+        return cls(name, id, counter)

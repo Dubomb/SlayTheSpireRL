@@ -11,9 +11,11 @@ class PlayerState:
     
     @classmethod
     def from_dict(cls, data):
-        return cls(int(data['current_hp']),
-                   int(data['max_hp']),
-                   int(data['gold']),
-                   [Relic.from_dict(relic) for relic in data['relics']],
-                   data['deck'],
-                   data['potions'])
+        current_hp = int(data.get('current_hp', 0))
+        max_hp = int(data.get('max_hp', 0))
+        gold = int(data.get('gold', 0))
+        relics = [Relic.from_dict(relic) for relic in data.get('relics', [])]
+        deck = data.get('deck', [])
+        potions = data.get('potions', [])
+
+        return cls(current_hp, max_hp, gold, relics, deck, potions)

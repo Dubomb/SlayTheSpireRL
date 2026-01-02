@@ -9,7 +9,9 @@ class RoomState:
     
     @classmethod
     def from_dict(cls, data):
-        return cls(data['room_phase'],
-                   data['room_type'],
-                   int(data['floor']),
-                   PlayerState.from_dict(data))
+        room_phase = data.get('room_phase', '')
+        room_type = data.get('room_type', '')
+        floor = int(data.get('floor', 0))
+        player_state = PlayerState.from_dict(data)
+
+        return cls(room_phase, room_type, floor, player_state)

@@ -25,9 +25,12 @@ def main():
 
                 game_state = GameState.from_dict(state)
 
-                gd.log_message(game_state.room_state.player.relics[0].name)
+                if game_state.player_state and game_state.player_state.potions:
+                    gd.log_message(f'Player has {len(game_state.player_state.potions)} potion(s).')
+
             except Exception as e:
                 error = traceback.format_exc()
+
                 gd.log_message(f'ERROR:\n{error}')
                 time.sleep(2)
 

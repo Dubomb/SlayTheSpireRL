@@ -1,4 +1,5 @@
 from .relic import Relic
+from .potion import Potion
 
 class PlayerState:
     def __init__(self, current_hp, max_hp, gold, relics, deck, potions):
@@ -16,6 +17,10 @@ class PlayerState:
         gold = int(data.get('gold', 0))
         relics = [Relic.from_dict(relic) for relic in data.get('relics', [])]
         deck = data.get('deck', [])
-        potions = data.get('potions', [])
+        potions = [
+            Potion.from_dict(potion) 
+            for potion in data.get('potions', []) 
+            if potion.get('id') != 'Potion Slot'
+        ]
 
         return cls(current_hp, max_hp, gold, relics, deck, potions)
